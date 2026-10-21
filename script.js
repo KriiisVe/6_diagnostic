@@ -669,10 +669,6 @@ function composeEmailText(data) {
 async function sendEmail() {
   const data = await getAnswers();
 
-  if (!data.studentName) {
-    toast("Введите имя и фамилию 👆", true);
-    return;
-  }
   const answerableQuestions = questions.filter((q) => q.type !== "info");
 
   const subject = `Диагностика 6 кл — ${data.studentName} ${data.studentSurName}`;
