@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Стартовая диагностика по математике - 6 класс</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="glass.bordered">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">M</div>
+        <div>
+          <div class="title">Стартовая диагностика · 6 класс</div>
+          <div class="muted" style="font-size: 12px">
+            Кристина · онлайн-репетитор по математике
+          </div>
+        </div>
+      </div>
+      <div class="status">
+        <span class="pill"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="#c85c88"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="timer-icon"
+          >
+            <circle cx="12" cy="13" r="8" />
+            <line x1="12" y1="13" x2="12" y2="8" />
+            <line x1="12" y1="13" x2="16" y2="13" />
+            <line x1="9" y1="3" x2="15" y2="3" />
+          </svg>
+          <strong id="timeLeft">40:00</strong></span
+        >
+
+        <span class="pill">
+          <div class="progress-circle" aria-label="Прогресс">
+            <svg viewBox="0 0 36 36">
+              <circle class="bg" cx="18" cy="18" r="16" />
+              <circle class="bar" cx="18" cy="18" r="16" />
+            </svg>
+          </div>
+          <span id="progressText">0/15</span>
+        </span>
+        <button class="btn secondary" id="resetBtn" type="button">
+          Сбросить
+        </button>
+      </div>
+    </header>
+
+    <main class="container grid">
+      <section class="card glass.bordered" id="formCard">
+        <h1>Диагностическая работа <span class="badge">45–60 минут</span></h1>
+        <p class="muted">
+          Пожалуйста, заполни данные и ответь на вопросы <br /><br />
+          С помощью этого тестирования мы поймем, что уже получается хорошо, а
+          что нам нужно разобрать вместе ✨ <br />
+          <br />
+          ⚪️ Не пользуйся посторонней помощью
+          <br />
+          ⚪️ Считай только в уме или в столбик <br />
+          ⚪️ Если что-то не получается или не помнишь, как решать - пропусти
+          это задание <br />
+          ⚪️ При записи десятичных дробей можешь использовать и точки, и
+          запятые!<br />
+          <br />Тест не на оценку, а лишь на определение уровня знаний! Поэтому
+          не бойся ошибиться. <br /><br />
+          Бери хорошее настроение и приступай 🌸
+        </p>
+        <br />
+
+        <div class="row">
+          <div>
+            <label for="studentName">Имя </label>
+            <input
+              id="studentName"
+              name="studentName"
+              type="text"
+              placeholder="Введите имя"
+              required
+            />
+          </div>
+          <div style="display: none">
+            <label for="studentClass">Фамилия</label>
+            <input
+              id="studentSurName"
+              name="studentSurName"
+              class="studentClass"
+              type="text"
+              placeholder="Введите фамилию"
+              required
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="disp">
+            <label for="contactEmail"
+              >Email для результата (родителя/ученика)
+              <span class="note">(необязательно)</span></label
+            >
+            <input
+              id="contactEmail"
+              name="contactEmail"
+              type="email"
+              placeholder="name@gmail.com"
+            />
+          </div>
+          <div class="disp">
+            <label for="timeInput">Время на работу (мин)</label>
+            <input
+              id="timeInput"
+              type="number"
+              min="10"
+              max="120"
+              step="5"
+              value="60"
+            />
+          </div>
+        </div>
+
+        <div class="progress" aria-label="Прогресс">
+          <div id="bar" class="bar"></div>
+        </div>
+        <p class="hint">Прогресс: <span id="progressText2">0 из 16</span></p>
+
+        <div id="questions" class="questions"></div>
+
+        <div class="card glass-card" style="margin-top: 20px; display: none">
+          <h2>Фото решений</h2>
+          <p class="hint">Можно прикрепить несколько фото (до 10 штук)</p>
+
+          <div class="file-upload" id="fileUploadBox">
+            <label class="file-upload-label" for="photos"
+              >📎 Выбрать фото</label
+            >
+            <input type="file" id="photos" accept="image/*" multiple />
+            <div class="file-hint" id="fileHint">Файлы не выбраны</div>
+          </div>
+
+          <div
+            id="preview"
+            style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px"
+          ></div>
+        </div>
+
+        <div class="footer gh">
+          <button class="btn ghost" id="saveBtn" type="button">
+            Сохранить черновик
+          </button>
+        </div>
+      </section>
+
+      <aside class="sticky-side">
+        <section class="card">
+          <h2>Таймер</h2>
+          <div class="timer" id="timer">60:00</div>
+          <div class="footer btn-container">
+            <button class="btn secondary" id="startTimer" type="button">
+              Старт
+            </button>
+            <button class="btn ghost" id="pauseTimer" type="button">
+              Пауза
+            </button>
+            <button class="btn ghost" id="resetTimer" type="button">
+              Сброс
+            </button>
+          </div>
+        </section>
+
+        <section class="">
+          <label
+            style="
+              display: flex;
+              gap: 8px;
+              align-items: flex-start;
+              font-size: 11px;
+              display: none;
+            "
+          >
+            <input id="consent" type="checkbox" />
+            <span>Соглашаюсь на обработку данных.</span>
+          </label>
+          <button class="btn" id="submitBtn" type="button">
+            Отправить результат
+          </button>
+        </section>
+      </aside>
+      <section class="card">
+        <div class="telegram-card">
+          <h2>Подпишись на мой Telegram-канал</h2>
+          <p>Рабочие тетради, файлы, игры по QR-коду или ссылке ниже</p>
+          <div class="tg-link">
+            <img src="./images/tg.png" alt="QR Telegram" class="telegram-qr" />
+
+            <div>
+              <a
+                href="https://t.me/mathkris_oge"
+                target="_blank"
+                class="btn secondary"
+              >
+                Перейти в Telegram
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container">
+      <p class="copyright">
+        © Кристина - онлайн-репетитор по математике. Этот сайт создан для
+        стартовой диагностики (6 класс).
+      </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="script.min.js"></script>
+  </body>
+</html>
