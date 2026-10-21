@@ -320,11 +320,10 @@ function renderQuestions() {
 
 renderQuestions();
 const totalAnswerable = questions.filter((q) =>
-  ["short", "options", "group"].includes(q.type)
+  ["short", "options", "group"].includes(q.type),
 ).length;
-document.getElementById(
-  "progressText2"
-).textContent = `0 из ${totalAnswerable}`;
+document.getElementById("progressText2").textContent =
+  `0 из ${totalAnswerable}`;
 document.getElementById("progressText").textContent = `0/${totalAnswerable}`;
 
 const bar = document.getElementById("bar");
@@ -343,7 +342,7 @@ async function getAnswers() {
   for (const q of questions) {
     if (q.type === "options") {
       const selected = document.querySelector(
-        `input[name="q_${q.id}"]:checked`
+        `input[name="q_${q.id}"]:checked`,
       );
       data.answers[q.id] = selected ? selected.value.trim() : "";
     } else if (q.type === "short") {
@@ -462,7 +461,7 @@ function setAnswers(data) {
       document.getElementById(`q_${q.id}`).value = val;
     } else if (q.type === "options") {
       const radio = document.querySelector(
-        `input[name="q_${q.id}"][value="${val}"]`
+        `input[name="q_${q.id}"][value="${val}"]`,
       );
       if (radio) radio.checked = true;
     } else if (q.type === "short-fraction") {
@@ -512,7 +511,7 @@ async function updateProgress() {
 
   let filled = 0;
   const answerableQuestions = questions.filter(
-    (q) => q.type && q.type !== "info"
+    (q) => q.type && q.type !== "info",
   );
   answerableQuestions.forEach((q) => {
     const v = data.answers[q.id];
@@ -618,8 +617,10 @@ function renderPreview() {
                                                     <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top">${
                                                       q.text
                                                     }${
-        q.img ? "<br><span class='note'>[с иллюстрацией]</span>" : ""
-      }</td>
+                                                      q.img
+                                                        ? "<br><span class='note'>[с иллюстрацией]</span>"
+                                                        : ""
+                                                    }</td>
                                                     <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><div>${human}</div></td>
                                                   </tr>`;
     })
@@ -668,19 +669,19 @@ function composeEmailText(data) {
 async function sendEmail() {
   const data = await getAnswers();
 
-  if (!data.studentName || !data.studentSurName) {
+  if (!data.studentName) {
     toast("Введите имя и фамилию 👆", true);
     return;
   }
   const answerableQuestions = questions.filter((q) => q.type !== "info");
 
-  const subject = `Диагностика 7 кл — ${data.studentName} ${data.studentSurName}`;
+  const subject = `Диагностика 6 кл — ${data.studentName} ${data.studentSurName}`;
   const { correctCount } = countCorrectAnswers(data);
   const spentSec = totalSec - leftSec;
   const spentMin = Math.round(spentSec / 60);
   const message = `
       <div style="font-family:Inter,sans-serif;color:#3c2a1e">
-        <h2>Диагностика 7 класс</h2>
+        <h2>Диагностика 6 класс</h2>
         <p><b>Имя:</b> ${data.studentName}<br>
         <b>Фамилия:</b> ${data.studentSurName}<br>
         <b>Дата:</b> ${new Date().toLocaleString()}<br>
@@ -754,7 +755,7 @@ photosInput.addEventListener("change", function () {
 
   newFiles.forEach((file) => {
     const duplicate = selectedFiles.some(
-      (f) => f.name === file.name && f.size === file.size
+      (f) => f.name === file.name && f.size === file.size,
     );
     if (!duplicate) {
       selectedFiles.push(file);
