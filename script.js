@@ -678,7 +678,7 @@ async function sendEmail() {
   const message = `
       <div style="font-family:Inter,sans-serif;color:#3c2a1e">
         <h2>Диагностика 6 класс</h2>
-        <p><b>Имя:</b> ${data.studentName}<br>
+        <p><b></b> ${data.studentName}<br>
         <b>Фамилия:</b> ${data.studentSurName}<br>
         <b>Дата:</b> ${new Date().toLocaleString()}<br>
            <b>Затрачено времени:</b> ${spentMin} мин<br>
